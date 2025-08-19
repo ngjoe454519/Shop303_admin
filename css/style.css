@@ -48,25 +48,29 @@ body {
     box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
 }
 body {
-            background: #f5f7fa;
+            background: linear-gradient(135deg, #5296da 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', 'Roboto','Sofia', Arial, sans-serif;
         }
 /* Sửa selector cho đúng class .admin-header */
 .admin-header {
                 background: linear-gradient(90deg, #232526 0%, #414345 100%);
-                color: #c21010;
+                color: #ff0101;
                 border-radius: 0 0 24px 24px;
                 box-shadow: 0 6px 32px rgba(0,0,0,0.10);
                 position: relative;
                 overflow: hidden;
+                
+                
             }
 /* Xóa selector sai #admin-header, dùng .admin-header ở trên */
             .admin-title {
                 font-size: 2.3rem;
                 letter-spacing: 1.5px;
-                font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+                font-family: "Trirong", sans-serif;
                 font-weight: 700;
                 text-shadow: 0 2px 8px rgba(0,0,0,0.10);
                 margin-bottom: 0;
+
             }
             .admin-subtitle {
                 font-size: 1.2rem;
