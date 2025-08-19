@@ -1,0 +1,310 @@
+<script>
+    if (sessionStorage.getItem("USER") == undefined) {
+        window.location = `.`
+    } else {
+        var user = JSON.parse(sessionStorage.getItem("USER"));
+
+    }
+</script>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Quản trị Cửa hàng 303</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 text-center py-4 mb-2 admin-header">
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                    <img src="images/user.png" alt="Logo" style="width:56px;height:56px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.10);margin-right:18px;background:#fff;" class="mb-3 mb-md-0">
+                    <h1 class="mb-0 admin-title">Hệ thống Quản trị <span class="font-weight-bold" style="color:#ffc107;">- Store Châu Nguyễn</span></h1>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-lg-2 col-md-3 sidebar d-flex flex-column align-items-center justify-content-start p-0"
+                style="margin-left:0;">
+                <div class="menu-item w-100 text-center" onclick="window.location='./mobile/'">
+                    <img src="images/mobile.png" alt="Mobile">
+                    <h5 class="text-danger">Mobile</h5>
+                </div>
+                <div class="menu-item w-100 text-center" onclick="window.location='./tivi/'">
+                    <img src="images/tivi.png" alt="Tivi">
+                    <h5 class="text-warning">Tivi</h5>
+                </div>
+                <div class="menu-item w-100 text-center" onclick="window.location='./food/'">
+                    <img src="images/food.png" alt="Food">
+                    <h5 class="text-primary">Food</h5>
+                </div>
+                <div class="menu-item w-100 text-center" onclick="window.location='./user/'">
+                    <img src="images/user.png" alt="User">
+                    <h5 class="text-success">User</h5>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 stat-box">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="stat-title">Thống kê tổng quan</div>
+                    <div class="text-info">
+                        Chào: <span style="font-weight:600">
+                            <script>document.write(`${user.Ho_ten} - ${user.Nhom_Nguoi_dung.Ten}`)</script>
+                        </span>
+                        
+                                <button class="btn btn-danger ml-3" onclick="window.location=`.`" onclick="sessionStorage.removeItem('USER');window.location=`.`">Logout</button>
+                    </div>
+                </div>
+                <div id="ThongKeContent">
+                    <div class="row">
+
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="card shadow-sm border-0 text-center h-100">
+                                <div class="card-body py-4">
+                                    <div class="mb-2" style="font-size:2.2rem;color:#007bff"><i class="fa fa-cubes"></i>
+                                    </div>
+                                    <div class="font-weight-bold" style="font-size:1.1rem;">Tổng số mặt hàng</div>
+                                    <div class="h4 text-primary mt-2" id="baocao-tongsp">--</div>
+
+                                    <canvas id="chartSP" width="180" height="120" style="margin-top:10px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="card shadow-sm border-0 text-center h-100">
+                                <div class="card-body py-4">
+                                    <div class="mb-2" style="font-size:2.2rem;color:#e53935"><i
+                                            class="fa fa-shopping-cart"></i></div>
+                                    <div class="font-weight-bold" style="font-size:1.1rem;">Đơn hàng mới</div>
+
+
+                                    <div class="h4 text-danger mt-2" id="baocao-donhang">--</div>
+                                    <canvas id="chartDonHang" width="180" height="120"
+                                        style="margin-top:10px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="card shadow-sm border-0 text-center h-100">
+                                <div class="card-body py-4">
+                                    <div class="mb-2" style="font-size:2.2rem;color:#ffc107"><i class="fa fa-users"></i>
+                                    </div>
+                                    <div class="font-weight-bold" style="font-size:1.1rem;">Số lượng user</div>
+                                    <div class="h4 text-warning mt-2"><span id="baocao-user"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-12 mb-3">
+                            <div class="card shadow-sm border-0 text-center h-100">
+                                <div class="card-body">
+                                    <div class="mb-12" style="font-size:2.2rem;color:#00bcd4"><i
+                                            class="fa fa-list-alt"></i></div>
+                                    <div class="font-weight-bold" style="font-size:1.1rem;">Thống Kê Tồn Kho</div>
+                                  
+                                    <canvas id="chartTonNhapBan" width="350" height="180"
+                                        style="margin-top:18px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <script>
+                    // Đếm tổng số mặt hàng
+                    Promise.all([
+                        fetch('http://localhost:8088/LIST_TIVI').then(res => res.json()),
+                        fetch('http://localhost:8088/LIST_MOBILE').then(res => res.json()),
+                        fetch('http://localhost:8088/LIST_FOOD').then(res => res.json())
+                    ]).then(([tivi, mobile, food]) => {
+                        const tiviCount = Array.isArray(tivi) ? tivi.length : (tivi.count || 0);
+                        const mobileCount = Array.isArray(mobile) ? mobile.length : (mobile.count || 0);
+                        const foodCount = Array.isArray(food) ? food.length : (food.count || 0);
+                        const tong = tiviCount + mobileCount + foodCount;
+
+                        document.getElementById('baocao-tongsp').textContent = tong;
+                        // Chart.js
+                        const ctx = document.getElementById('chartSP').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['Tivi', 'Mobile', 'Food'],
+                                datasets: [{
+                                    data: [tiviCount, mobileCount, foodCount],
+                                    backgroundColor: [
+                                        '#6c757d', // Tivi
+                                        '#007bff', // Mobile
+                                        '#ffc107'  // Food
+                                    ],
+                                    borderWidth: 2
+                                }]
+                            },
+                            options: {
+                                cutout: '70%',
+                                plugins: {
+                                    legend: { display: true, position: 'bottom' },
+                                    tooltip: { enabled: true }
+                                }
+                            }
+                        });
+                    }).catch(() => {
+                        document.getElementById('baocao-tongsp').textContent = 'Lỗi';
+                    });
+                    // Báo cáo phiếu đặt hàng
+                    fetch('http://localhost:8088/BAOCAO_DATHANG')
+                        .then(res => res.json())
+                        .then(data => {
+
+
+                            // Chart.js cột cho đơn hàng mới
+                            const ctxDonHang = document.getElementById('chartDonHang').getContext('2d');
+                            new Chart(ctxDonHang, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Tivi', 'Mobile', 'Food'],
+                                    datasets: [{
+                                        label: 'Phiếu đặt hàng',
+                                        data: [data.tivi, data.mobile, data.food],
+                                        backgroundColor: [
+                                            '#6c757d', // Tivi
+                                            '#007bff', // Mobile
+                                            '#ffc107'  // Food
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    indexAxis: 'x',
+                                    plugins: {
+                                        legend: { display: false },
+                                        tooltip: { enabled: true }
+                                    },
+                                    scales: {
+                                        x: { beginAtZero: true }
+                                    }
+                                }
+                            });
+                            // Tổng đơn hàng mới
+                            document.getElementById('baocao-donhang').textContent = data.tong;
+                        })
+                        .catch(() => {
+                            document.getElementById('baocao-tong').textContent = 'Lỗi';
+                        });
+                    fetch('http://localhost:8088/LIST_USER')
+                        .then(res => res.json())
+                        .then(data => {
+                            // Giả sử data.user là mảng user hoặc object có mảng user
+                           // let users = Array.isArray(data.user) ? data.user : (Array.isArray(data.user.list) ? data.user.list : []);
+                          //  console.log(data.user);
+                            console.log(data);
+                            // Nếu data.user là số, không xử lý tiếp
+                            if (typeof data.user === 'number') {
+                                document.getElementById('baocao-user').textContent = data.user;
+                                return;
+                            }
+                            let countAdmin = 0, countNVQL = 0, countNV = 0;
+                            data.forEach(u => {
+                                if (u.Nhom_Nguoi_dung && u.Nhom_Nguoi_dung.Ma_so) {
+                                    if (u.Nhom_Nguoi_dung.Ma_so === 'ADMIN') countAdmin++;
+                                    else if (u.Nhom_Nguoi_dung.Ma_so && u.Nhom_Nguoi_dung.Ma_so.includes('QUAN_LY')) countNVQL++;
+                                    else if (u.Nhom_Nguoi_dung.Ma_so && u.Nhom_Nguoi_dung.Ma_so.includes('NHAN_VIEN')) countNV++;
+                                }
+                            });
+                            console.log(countAdmin, countNVQL, countNV);
+                            // Hiển thị lên giao diện
+                            document.getElementById('baocao-user').innerHTML = `
+                            <div class="row" style="justify-content: space-between; align-items: center;">
+                                <span class="badge badge-warning" style="font-size:1.1rem;">Tổng: ${data.length}</span>
+                                <div class="text-right" ">
+                                    <span class="badge badge-primary" style="font-size:1.1rem; margin: 5px;">Admin: ${countAdmin}</span></br>
+                                    <span class="badge badge-secondary" style="font-size:1.1rem; margin: 5px;">Quản lý: ${countNVQL}</span></br>
+                                    <span class="badge badge-success" style="font-size:1.1rem; margin: 5px;">Nhân viên: ${countNV}</span>
+                                </div>
+                                </div>
+                               
+                            `;
+                            // Nếu muốn vẽ biểu đồ user, có thể thêm code Chart.js ở đây
+                        })
+                        .catch(() => {
+                            document.getElementById('baocao-user').textContent = 'Lỗi';
+                        });
+                    // Báo cáo tồn kho, nhập, bán
+                    fetch('http://localhost:8088/BAOCAO_TON_NHAP')
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            // Chart.js bar
+                            const ctxTon = document.getElementById('chartTonNhapBan').getContext('2d');
+                            new Chart(ctxTon, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Tivi', 'Mobile', 'Food'],
+                                    datasets: [
+                                        {
+                                            label: 'Tồn kho',
+                                            data: [data.tivi.hien_tai, data.mobile.hien_tai, data.food.hien_tai],
+                                            backgroundColor: '#00bcd4',
+                                            borderWidth: 1
+                                        },
+                                        {
+                                            label: 'Đã nhập',
+                                            data: [data.tivi.nhap, data.mobile.nhap, data.food.nhap],
+                                            backgroundColor: '#4caf50',
+                                            borderWidth: 1
+                                        },
+                                        {
+                                            label: 'Đã bán',
+                                            data: [data.tivi.ban, data.mobile.ban, data.food.ban],
+                                            backgroundColor: '#e53935',
+                                            borderWidth: 1
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    plugins: {
+                                        legend: { display: true, position: 'bottom' },
+                                        tooltip: { enabled: true }
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        x: { stacked: false },
+                                        y: { beginAtZero: true, stacked: false }
+                                    }
+                                }
+                            });
+                        })
+                        .catch(() => {
+                            document.getElementById('chartTonNhapBan').textContent = 'Lỗi';
+                        });
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<script>
+    if (sessionStorage.getItem("USER") == undefined) {
+        window.location = `../.`
+    } else {
+        var user = JSON.parse(sessionStorage.getItem("USER"));
+
+    }
+</script>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Quản trị Cửa hàng 288 - Mobile</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+        * { font-family: Montserrat; font-size: 15px; }
+        .header {
+            background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+            color: #fff;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            padding: 30px 0 20px 0;
+            margin-bottom: 30px;
+        }
+        .sticky-top.bg-light { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 12px; }
+        .table-responsive { margin-top: 20px; }
+        .table th, .table td { vertical-align: middle !important; }
+        .table th { background: #28a745 !important; color: #fff !important; }
+        .table-striped tbody tr:nth-of-type(odd) { background: #f8f9fa; }
+        .btn-danger, .btn-primary { border-radius: 50px; font-weight: 600; }
+        .btn-danger { background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%); border: none; }
+        .btn-danger:hover { background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%); }
+        input[type="text"] { border-radius: 20px; border: 1px solid #ced4da; padding: 6px 16px; }
+        #Th_Danhsach img { width: 48px; height: 48px; object-fit: cover; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .modal-content { border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+        .modal-title { color: #007bff; }
+        .close { outline: none; }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 header text-center">
+                <h1 style="font-size:2.2rem; letter-spacing:1px;">Hệ thống Quản trị <span style="font-weight:700; color:#ffe082;">Mobile</span></h1>
+                <p style="font-size:1.1rem; color:#e3f2fd;">Cập nhật, quản lý sản phẩm điện thoại dễ dàng và nhanh chóng</p>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-2 sticky-top bg-light mt-3 mb-3">
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <button class="btn btn-danger " onclick="insertMobile()" title="Thêm Điện thoại" data-toggle="modal"
+                    data-target="#modelId"><i class="fa fa-mobile" aria-hidden="true"></i> Thêm</button>
+                <input type="text" class="mt-1 flex-grow-1" style="max-width:300px;" name="" id="" placeholder="Tìm theo tên"
+                    onkeyup="KeyCode(event)">
+            </div>
+            <div class="col-6 text-right d-flex flex-column align-items-end justify-content-center">
+                <h5 class="text-info mb-1">
+                    Chào: <span style="font-weight:600; color:#007bff"><script>document.write(`${user.Ho_ten} - ${user.Nhom_Nguoi_dung.Ten}`)</script></span>
+                </h5>
+                <small><a href="javaScript:void(0)" class="text-danger font-weight-bold" style="text-decoration:underline;" onclick="window.location=`../admin.html`">&larr; Về trang chủ</a></small>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 table-responsive p-0">
+                <table class="table table-sm table-striped shadow-sm rounded">
+                    <thead class="text-center">
+                        <tr>
+                            <th>#</th>
+                            <th>Hình</th>
+                            <th>Tên</th>
+                            <th>Giá Nhập</th>
+                            <th>Giá Bán</th>
+                            <th>Nhóm</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Th_Danhsach"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="ModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="ModalCancel" data-dismiss="modal">Bỏ
+                        qua</button>
+                    <button type="button" class="btn btn-primary" id="ModalSave" onclick="saveMobile()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/format.js"></script>
+    <script src="../js/mobile.js"></script>
+    <script>
+        let dsMobile = [];
+        apiDienthoai().then(result => {
+            dsMobile = result;
+            console.log(dsMobile);
+            Xuat_Danh_sach(dsMobile);
+        })
+    </script>
+</body>
+
+</html>
