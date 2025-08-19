@@ -1,5 +1,7 @@
-const Dia_chi_Dich_vu='http://localhost:8088';
-const Dia_chi_Img='http://localhost:8088';
+//const Dia_chi_Dich_vu='http://localhost:8088';
+//const Dia_chi_Img='http://localhost:8088';
+ const Dia_chi_Dich_vu='https://hephucvu-1k69.onrender.com';
+ const Dia_chi_Img='https://hephucvu-1k69.onrender.com';
 const apiUser=()=>{
     return new Promise((Ket_qua, Loi) => {
         let Du_lieu = {}
