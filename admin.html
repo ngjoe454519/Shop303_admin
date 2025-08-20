@@ -126,9 +126,9 @@
                 <script>
                     // Đếm tổng số mặt hàng
                     Promise.all([
-                        fetch('http://localhost:8088/LIST_TIVI').then(res => res.json()),
-                        fetch('http://localhost:8088/LIST_MOBILE').then(res => res.json()),
-                        fetch('http://localhost:8088/LIST_FOOD').then(res => res.json())
+                        fetch('https://hephucvu-1k69.onrender.com/LIST_TIVI').then(res => res.json()),
+                        fetch('https://hephucvu-1k69.onrender.com/LIST_MOBILE').then(res => res.json()),
+                        fetch('https://hephucvu-1k69.onrender.com/LIST_FOOD').then(res => res.json())
                     ]).then(([tivi, mobile, food]) => {
                         const tiviCount = Array.isArray(tivi) ? tivi.length : (tivi.count || 0);
                         const mobileCount = Array.isArray(mobile) ? mobile.length : (mobile.count || 0);
@@ -164,7 +164,7 @@
                         document.getElementById('baocao-tongsp').textContent = 'Lỗi';
                     });
                     // Báo cáo phiếu đặt hàng
-                    fetch('http://localhost:8088/BAOCAO_DATHANG')
+                    fetch('https://hephucvu-1k69.onrender.com/BAOCAO_DATHANG')
                         .then(res => res.json())
                         .then(data => {
 
@@ -203,7 +203,7 @@
                         .catch(() => {
                             document.getElementById('baocao-tong').textContent = 'Lỗi';
                         });
-                    fetch('http://localhost:8088/LIST_USER')
+                    fetch('https://hephucvu-1k69.onrender.com/LIST_USER')
                         .then(res => res.json())
                         .then(data => {
                             // Giả sử data.user là mảng user hoặc object có mảng user
@@ -242,7 +242,7 @@
                             document.getElementById('baocao-user').textContent = 'Lỗi';
                         });
                     // Báo cáo tồn kho, nhập, bán
-                    fetch('http://localhost:8088/BAOCAO_TON_NHAP')
+                    fetch('https://hephucvu-1k69.onrender.com/BAOCAO_TON_NHAP')
                         .then(res => res.json())
                         .then(data => {
                             console.log(data);
